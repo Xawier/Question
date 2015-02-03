@@ -1,0 +1,13 @@
+body {
+  padding-top: 70px;
+  padding-bottom: 30px;
+  background-color: #eee;
+}
+
+.header-avatar{
+    height: 38px;
+    width: 38px;
+    border-radius: 50px;
+    margin: 5px;
+    border: 2px solid white;
+}

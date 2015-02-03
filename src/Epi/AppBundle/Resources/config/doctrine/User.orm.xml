@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Epi\AppBundle\Entity\User" table="USER">
+    <unique-constraints>
+      <unique-constraint name="ID_UNIQUE" columns="ID"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="ID">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="roles" type="string" column="ROLES" length="45" nullable="false"/>
+    <field name="username" type="string" column="USERNAME" length="45" nullable="false"/>
+    <field name="mail" type="string" column="MAIL" length="45" nullable="false"/>
+    <field name="password" type="string" column="PASSWORD" length="45" nullable="false"/>
+    <field name="salt" type="string" column="SALT" length="45" nullable="false"/>
+    <field name="ad" type="string" column="AD" length="300" nullable="true"/>
+  </entity>
+</doctrine-mapping>

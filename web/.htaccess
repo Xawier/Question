@@ -50,3 +50,8 @@ DirectoryIndex app.php
         # RedirectTemp cannot be used instead
     </IfModule>
 </IfModule>
+
+
+php_value date.timezone "Europe/Warsaw"
+php_value xdebug.max_nesting_level 250
+php_flag short_open_tag Off

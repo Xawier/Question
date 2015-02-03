@@ -1,0 +1,7 @@
+parameters:
+#    epi_app.example.class: Epi\AppBundle\Example
+
+services:
+#    epi_app.example:
+#        class: %epi_app.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

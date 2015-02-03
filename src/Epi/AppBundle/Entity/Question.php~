@@ -1,0 +1,76 @@
+<?php
+
+namespace Epi\AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Question
+ *
+ * @ORM\Table(name="QUESTION", uniqueConstraints={@ORM\UniqueConstraint(name="ID_UNIQUE", columns={"ID"})}, indexes={@ORM\Index(name="fk_QUESTION_USER1_idx", columns={"USER_ID"}), @ORM\Index(name="fk_QUESTION_ANSWER1_idx", columns={"BEST_ANSWER"}), @ORM\Index(name="fk_QUESTION_CATEGORY1_idx", columns={"CATEGORY_ID"})})
+ * @ORM\Entity
+ */
+class Question
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="VALUE", type="text", nullable=false)
+     */
+    private $value;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="DATE", type="datetime", nullable=false)
+     */
+    private $date;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="COVER", type="string", length=45, nullable=true)
+     */
+    private $cover;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ID", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \Epi\AppBundle\Entity\Category
+     *
+     * @ORM\ManyToOne(targetEntity="Epi\AppBundle\Entity\Category")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="CATEGORY_ID", referencedColumnName="ID")
+     * })
+     */
+    private $category;
+
+    /**
+     * @var \Epi\AppBundle\Entity\Answer
+     *
+     * @ORM\ManyToOne(targetEntity="Epi\AppBundle\Entity\Answer")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="BEST_ANSWER", referencedColumnName="ID")
+     * })
+     */
+    private $bestAnswer;
+
+    /**
+     * @var \Epi\AppBundle\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="Epi\AppBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="USER_ID", referencedColumnName="ID")
+     * })
+     */
+    private $user;
+
+
+}
