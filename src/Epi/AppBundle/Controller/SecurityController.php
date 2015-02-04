@@ -43,30 +43,18 @@ class SecurityController extends Controller
         );
     }
 
-    public function registerAction()
-    {
-        $form = $this->createForm(
-            new Type\UserType()
-        );
-
-        return $this->render(
-            'EpiAppBundle:Security:register.html.twig',
-            array('form' => $form->createView())
-        );
-    }
-
-    public function createAction(Request $request)
+    public function registerAction(Request $request)
     {
         $user = new User();
-        $registrationForm = $this->createForm(new Type\UserType(), $user);
+        $form = $this->createForm(new Type\UserType(), $user);
 
         if ($request->isMethod('post')) {
 
-            $registrationForm->bindRequest($request);
+            $form->bindRequest($request);
 
-            if ($registrationForm->isValid()) {
+            if ($form->isValid()) {
                 $user = new User();
-                $user = $registrationForm->getData();
+                $user = $form->getData();
                 $factory = $this->get('security.encoder_factory');
                 $encoder = $factory->getEncoder($user);
 
@@ -76,34 +64,13 @@ class SecurityController extends Controller
 
                 $em->persist($user);
                 $em->flush();
-
+                return $this->render('EpiAppBundle:Security:login.html.twig', array('last_username' => $user->getUsername(), 'error' => null));
+    
             }
 
         }
 
-        return $this->render('EpiAppBundle:Security:register.html.twig', array('form' => $registrationForm->createView()));
+        return $this->render('EpiAppBundle:Security:register.html.twig', array('form' => $form->createView(), 'error' => $form->getErrorsAsString()));
     
-
-        // $em = $this->getDoctrine()->getManager();
-
-        // $form = $this->createForm(new RegistrationType(), new Registration());
-
-        // $form->bindRequest($request);
-
-        // if ($form->isValid()) {
-        //     $registration = $form->getData();
-
-        //     $factory = $this->get('security.encoder_factory');
-
-        //     $encoder = $factory->getEncoder($registration);
-        //     $password = $encoder->encodePassword('ryanpass', null);
-        //     $registration->setPassword($password);
-
-        //     $em->persist($registration->getUser());
-        //     $em->flush();
-
-        //     return $this->redirect('EpiAppBundle:Security:login.html.twig');
-        // }
-
     }
 }

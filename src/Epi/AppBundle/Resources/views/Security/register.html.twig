@@ -1,6 +1,58 @@
-{# src/Acme/AccountBundle/Resources/views/Account/register.html.twig #}
-<form action="{{ path('account_create')}}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
+{% extends 'EpiAppBundle::base.html.twig' %}
 
-    <input type="submit" />
-</form>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}" />
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="col-md-4 col-md-offset-4">
+        	<div class="panel panel-default">
+        		<h1>Join us!</h1>
+		      <form class="form-signin" role="form" action="{{ path('account_register') }}" method="post"  form_enctype(form) }}>
+		      	<div class="form-group">
+		      		{% if form_errors(form.username) %}
+		                <div class="alert alert-danger" role="alert">
+		                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="float:left"></span>
+		                  {{ form_errors(form.username) }}
+		                </div>
+	            	{% endif %}
+		        	{{ form_widget(form.username) }}
+		        </div>
+		        <div class="form-group">
+		        	{% if form_errors(form.email) %}
+		                <div class="alert alert-danger" role="alert">
+		                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="float:left"></span>
+		                  {{ form_errors(form.email) }}
+		                </div>
+	            	{% endif %}
+		        	{{ form_widget(form.email) }}
+		        </div>
+		        <div class="form-group">
+		        	{% if form_errors(form.password.password) %}
+		                <div class="alert alert-danger" role="alert">
+		                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="float:left"></span>
+		                  {{ form_errors(form.password.password) }}
+		                </div>
+	            	{% endif %}
+		        	{{ form_widget(form.password.password) }}
+		        </div>
+		        <div class="form-group">
+		        	{% if form_errors(form.password.confirm) %}
+		                <div class="alert alert-danger" role="alert">
+		                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="float:left"></span>
+		                  {{ form_errors(form.password.confirm) }}
+		                </div>
+	            	{% endif %}
+		        	{{ form_widget(form.password.confirm) }}
+		        </div>
+		        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+		        {{ form_rest(form) }}
+		      </form>
+		    </div>
+		  </div>
+
+    </div> <!-- /container -->
+
+{% endblock %}
