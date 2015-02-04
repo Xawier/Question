@@ -5,3 +5,9 @@ login_check:
     pattern:   /login_check
 logout:
     path:   /logout
+account_register:
+    path:     /register
+    defaults: { _controller: EpiAppBundle:Security:register }
+account_create:
+    path:     /register/create
+    defaults: { _controller: EpiAppBundle:Security:create }

@@ -9,7 +9,7 @@
     </id>
     <field name="roles" type="string" column="ROLES" length="45" nullable="false"/>
     <field name="username" type="string" column="USERNAME" length="45" nullable="false"/>
-    <field name="mail" type="string" column="MAIL" length="45" nullable="false"/>
+    <field name="email" type="string" column="EMAIL" length="45" nullable="false"/>
     <field name="password" type="string" column="PASSWORD" length="45" nullable="false"/>
     <field name="salt" type="string" column="SALT" length="45" nullable="false"/>
     <field name="ad" type="string" column="AD" length="300" nullable="true"/>

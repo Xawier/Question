@@ -4,12 +4,14 @@ namespace Epi\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
  *
  * @ORM\Table(name="USER", uniqueConstraints={@ORM\UniqueConstraint(name="ID_UNIQUE", columns={"ID"})})
  * @ORM\Entity
+ * @UniqueEntity(fields="email", message="Email already taken", fields="username", message="Username already taken")
  */
 class User implements UserInterface
 {
@@ -30,9 +32,9 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="MAIL", type="string", length=45, nullable=false)
+     * @ORM\Column(name="email", type="string", length=45, nullable=false)
      */
-    private $mail;
+    private $email;
 
     /**
      * @var string
@@ -67,8 +69,8 @@ class User implements UserInterface
     public function __construct()
     {
         $this->isActive = true;
-        // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid(null, true));
+        $this->roles = "ROLE_USER";
+        $this->salt = md5(uniqid(null, true));
     }
 
     /**
@@ -121,26 +123,26 @@ class User implements UserInterface
     }
 
     /**
-     * Set mail
+     * Set email
      *
-     * @param string $mail
+     * @param string $email
      * @return User
      */
-    public function setMail($mail)
+    public function setEmail($email)
     {
-        $this->mail = $mail;
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * Get mail
+     * Get email
      *
      * @return string 
      */
-    public function getMail()
+    public function getEmail()
     {
-        return $this->mail;
+        return $this->email;
     }
 
     /**
@@ -186,8 +188,7 @@ class User implements UserInterface
      */
     public function getSalt()
     {
-        //return $this->salt;
-        return null;
+        return $this->salt;
     }
 
     /**
