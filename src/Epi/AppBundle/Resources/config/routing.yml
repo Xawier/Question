@@ -20,3 +20,6 @@ show_question:
     methods:   [GET,POST]
     requirements:
           postId:     \d+
+change_category_ajax:
+    path:   /category/change/ajax
+    defaults: { _controller: EpiAppBundle:Category:change }

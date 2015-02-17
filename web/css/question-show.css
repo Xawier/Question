@@ -13,6 +13,8 @@ h1{
 	margin-bottom: 0px;
 }
 
-select{
+#category{
 	margin: 3px 0px;
+	color: white;
+	background: rgb(133, 100, 202);
 }

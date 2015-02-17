@@ -4,6 +4,10 @@
 	<link rel="stylesheet" href="{{ asset('css/question-show.css') }}" />
 {% endblock %}
 
+{% block scripts %}
+	<script src="{{ asset('js/question-show.js') }}"></script>
+{% endblock %}
+
 {% block body %}
 
 <div class="container">
@@ -19,14 +23,16 @@
 			  			<h1>{{ question.value }}</h1>
 			  		</div>
 			  		<div class="col-lg-2">
-				  		<select class="form-control">
-				  			{% if question.category == null %}
-				  				<option selected disabled>Add to category...</option>
-				  			{% endif %}
-				  			{% for category in categories %}
-							  <option {% if question.category == category %}selected{% endif %} >{{ category.value }}</option>
-							{% endfor %}
-						</select>
+			  			<fieldset {% if userIsAuthor == false %} disabled {% endif %}>
+					  		<select class="form-control" id="category">
+					  			{% if question.category == null %}
+					  				<option selected disabled>Add to category...</option>
+					  			{% endif %}
+					  			{% for category in categories %}
+								  <option {% if question.category == category %}selected{% endif %} value="{{ category.id }}">{{ category.value }}</option>
+								{% endfor %}
+							</select>
+						</fieldset>
 					</div>
 			  	</div>
 		  	</div>

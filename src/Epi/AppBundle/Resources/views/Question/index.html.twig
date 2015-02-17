@@ -26,21 +26,21 @@
 		<div class="col-lg-4">
 			<div class="list-group">
 				{% for category in categories|slice(0, 8)  %}
-				    <a href="#" class="list-group-item">{{category.value}}<span class="badge">14</span></a>
+				    <a href="#" class="list-group-item">{{category.value}}<span class="badge">{{ category.count }}</span></a>
 				{% endfor %}
 			</div>
 		</div>
 		<div class="col-lg-4">
 			<div class="list-group">
 			    {% for category in categories|slice(8, 8)  %}
-				    <a href="#" class="list-group-item">{{category.value}}<span class="badge">14</span></a>
+				    <a href="#" class="list-group-item">{{category.value}}<span class="badge">{{ category.count }}</span></a>
 				{% endfor %}
 			</div>
 		</div>
 		<div class="col-lg-4">
 			<div class="list-group">
 			    {% for category in categories|slice(16, 8)  %}
-				    <a href="#" class="list-group-item">{{category.value}}<span class="badge">14</span></a>
+				    <a href="#" class="list-group-item">{{category.value}}<span class="badge">{{ category.count }}</span></a>
 				{% endfor %}
 			</div>
 		</div>

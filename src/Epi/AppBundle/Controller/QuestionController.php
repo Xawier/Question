@@ -4,6 +4,7 @@ namespace Epi\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Epi\AppBundle\Form\Type;
 
@@ -20,8 +21,8 @@ class QuestionController extends Controller
 
         $category = $this->getDoctrine()
             ->getRepository('EpiAppBundle:Category')
-            ->findAll();
-
+            ->getCategories();
+            
         return $this->render('EpiAppBundle:Question:index.html.twig', array('categories' => $category, 'form' => $form->createView(), 'error' => $form->getErrorsAsString()));
     }
 
@@ -64,6 +65,7 @@ class QuestionController extends Controller
 
     public function showAction(Request $request)
     {
+
         $questionId = $request->get('questionId');
 
         $question = $this->getDoctrine()
@@ -74,8 +76,33 @@ class QuestionController extends Controller
             ->getRepository('EpiAppBundle:Category')
             ->findAll();
 
+        if($this->getUser()->getId() == $question->getUser()->getId()){
+            $userIsAuthor = true;
+        }else{
+            $userIsAuthor = false;
+        }
+
+        if($request->isXmlHttpRequest())
+        {
+            if($userIsAuthor)
+            {
+                $categoryId = $this->get('request')->request->get('categoryId');
+
+                $category = $this->getDoctrine()
+                ->getRepository('EpiAppBundle:Category')
+                ->find($categoryId);
+
+                $question->setCategory($category);
+
+                $em = $this->getDoctrine()->getManager();
+
+                $em->persist($question);
+                $em->flush();
+            }
+        }
+
         if (!empty($question)) {
-            return $this->render('EpiAppBundle:Question:show.html.twig', array('question' => $question, 'categories' => $category));
+            return $this->render('EpiAppBundle:Question:show.html.twig', array('question' => $question, 'categories' => $category, 'userIsAuthor' => $userIsAuthor));
         } else {
             $this->get('session')->getFlashBag()->set('error', 'question does not exist');
             return $this->redirect($this->generateUrl('home'));

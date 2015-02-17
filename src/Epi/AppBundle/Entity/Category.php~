@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Category
  *
  * @ORM\Table(name="CATEGORY", uniqueConstraints={@ORM\UniqueConstraint(name="ID_UNIQUE", columns={"ID"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Epi\AppBundle\Entity\CategoryRepository")
  */
 class Category
 {
