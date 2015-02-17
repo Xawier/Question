@@ -17,7 +17,7 @@ class SecurityController extends Controller
     {
         /*ROLE AUTHENTICATION*/
         if (true === $this->get('security.context')->isGranted('ROLE_USER')) {
-                return $this->redirect($this->generateUrl('log_index'));
+                return $this->redirect($this->generateUrl('home'));
         }
 
         $request = $this->getRequest();
@@ -45,6 +45,11 @@ class SecurityController extends Controller
 
     public function registerAction(Request $request)
     {
+        /*ROLE AUTHENTICATION*/
+        if (true === $this->get('security.context')->isGranted('ROLE_USER')) {
+                return $this->redirect($this->generateUrl('home'));
+        }
+
         $user = new User();
         $form = $this->createForm(new Type\UserType(), $user);
 
@@ -53,7 +58,6 @@ class SecurityController extends Controller
             $form->bindRequest($request);
 
             if ($form->isValid()) {
-                $user = new User();
                 $user = $form->getData();
                 $factory = $this->get('security.encoder_factory');
                 $encoder = $factory->getEncoder($user);

@@ -1,0 +1,50 @@
+{% extends 'EpiAppBundle::base.html.twig' %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/index.css') }}" />
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+	<div class="row" id="question-row">
+	  <div class="col-lg-8 col-lg-offset-2">
+	  	<div class="panel panel-default">
+	  		<form role="form" action="{{ path('add_question') }}" method="post" {{ form_enctype(form) }}>
+			    <div class="input-group">
+			      {{ form_widget(form.value) }}
+			      <span class="input-group-btn">
+			        <button class="btn btn-default btn-success" type="submit">Ask a Question!</button>
+			      </span>
+			    </div><!-- /input-group -->
+			    {{ form_rest(form) }}
+			</form>
+		 </div>
+	  </div><!-- /.col-lg-6 -->
+	</div><!-- /.row -->
+	<div class="row">
+		<div class="col-lg-4">
+			<div class="list-group">
+				{% for category in categories|slice(0, 8)  %}
+				    <a href="#" class="list-group-item">{{category.value}}<span class="badge">14</span></a>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="list-group">
+			    {% for category in categories|slice(8, 8)  %}
+				    <a href="#" class="list-group-item">{{category.value}}<span class="badge">14</span></a>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="list-group">
+			    {% for category in categories|slice(16, 8)  %}
+				    <a href="#" class="list-group-item">{{category.value}}<span class="badge">14</span></a>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

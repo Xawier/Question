@@ -10,7 +10,7 @@
 		<div class="col-md-4 col-md-offset-4">
         	<div class="panel panel-default">
         		<h1>Join us!</h1>
-		      <form class="form-signin" role="form" action="{{ path('account_register') }}" method="post"  form_enctype(form) }}>
+		      <form class="form-signin" role="form" action="{{ path('register') }}" method="post" {{ form_enctype(form) }}>
 		      	<div class="form-group">
 		      		{% if form_errors(form.username) %}
 		                <div class="alert alert-danger" role="alert">

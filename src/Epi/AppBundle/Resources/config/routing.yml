@@ -5,9 +5,18 @@ login_check:
     pattern:   /login_check
 logout:
     path:   /logout
-account_register:
+register:
     path:     /register
     defaults: { _controller: EpiAppBundle:Security:register }
-account_create:
-    path:     /register/create
-    defaults: { _controller: EpiAppBundle:Security:create }
+home:
+    path:     /
+    defaults: { _controller: EpiAppBundle:Question:index }
+add_question:
+    path:     /question/add
+    defaults: { _controller: EpiAppBundle:Question:add }
+show_question:
+    path:     /question/show/{questionId}
+    defaults: { _controller: EpiAppBundle:Question:show }
+    methods:   [GET,POST]
+    requirements:
+          postId:     \d+

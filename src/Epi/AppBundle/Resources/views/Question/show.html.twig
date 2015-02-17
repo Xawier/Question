@@ -1,0 +1,37 @@
+{% extends 'EpiAppBundle::base.html.twig' %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/question-show.css') }}" />
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+	<div class="row">
+	  <div class="col-lg-12">
+	  	<div class="panel panel-default">
+	  		<div class="panel-body">
+	  			<div class="row">
+			  		<div class="col-lg-1">
+			  			<span class="label label-success">#{{ question.id }}</span>
+			  		</div>
+			  		<div class="col-lg-9">
+			  			<h1>{{ question.value }}</h1>
+			  		</div>
+			  		<div class="col-lg-2">
+				  		<select class="form-control">
+				  			{% if question.category == null %}
+				  				<option selected disabled>Add to category...</option>
+				  			{% endif %}
+				  			{% for category in categories %}
+							  <option {% if question.category == category %}selected{% endif %} >{{ category.value }}</option>
+							{% endfor %}
+						</select>
+					</div>
+			  	</div>
+		  	</div>
+		 </div>
+	  </div><!-- /.col-lg-6 -->
+	</div><!-- /.row -->
+
+{% endblock %}

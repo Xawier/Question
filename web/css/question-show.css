@@ -1,0 +1,18 @@
+.label-success{
+	line-height: 2.4;
+	margin: 20px;
+	font-size: 18px;
+	padding: 10px 14px;
+	font-weight: 200;
+	margin-top: 5px;
+}
+
+h1{
+	font-weight: 200;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+select{
+	margin: 3px 0px;
+}

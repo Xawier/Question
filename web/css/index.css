@@ -1,0 +1,13 @@
+#question-row{
+  margin-top:100px;
+  margin-bottom: 100px;
+}
+
+#question-row input, #question-row button{
+  height: 50px;
+  font-size: 18px;
+}
+
+#question-row form{
+  padding: 15px;
+}
