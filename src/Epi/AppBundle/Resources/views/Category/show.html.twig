@@ -1,0 +1,49 @@
+{% extends 'EpiAppBundle::base.html.twig' %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/question-show.css') }}" />
+	<link rel="stylesheet" href="{{ asset('css/category-show.css') }}" />
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+	<div class="row">
+		  <div class="col-lg-12">
+		  	<div class="panel panel-default category-title">
+		  		<div class="panel-body">
+		  			<div class="row">
+				  		<div class="col-lg-12">
+				  			<h1>{{ category.value }}</h1>
+				  		</div>
+				  	</div>
+			  	</div>
+			 </div>
+		  </div>
+	</div>
+	{% for question in questions  %}
+		<div class="row">
+		  <div class="col-lg-12">
+		  	<a href="{{ url('show_question', {'questionId' : question.id}) }}" >
+			  	<div class="panel panel-default">
+			  		<div class="panel-body">
+			  			<div class="row">
+					  		<div class="col-lg-1">
+					  			<span class="label label-success">#{{ question.id }}</span>
+					  		</div>
+					  		<div class="col-lg-11">
+					  			<h1>{{ question.value }}</h1>
+					  		</div>
+					  	</div>
+				  	</div>
+				 </div>
+			</a>
+		  </div>
+	</div>
+	{% endfor %}
+</div>
+
+{% endblock %}

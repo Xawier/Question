@@ -11,6 +11,7 @@ use Epi\AppBundle\Form\Type;
 use Epi\AppBundle\Entity\Question;
 use Epi\AppBundle\Entity\Category;
 use Epi\AppBundle\Entity\User;
+use Epi\AppBundle\Entity\Answer;
 
 class QuestionController extends Controller
 {
@@ -72,15 +73,17 @@ class QuestionController extends Controller
             ->getRepository('EpiAppBundle:Question')
             ->find($questionId);
 
-        $category = $this->getDoctrine()
+        $categories = $this->getDoctrine()
             ->getRepository('EpiAppBundle:Category')
             ->findAll();
 
-        if($this->getUser()->getId() == $question->getUser()->getId()){
-            $userIsAuthor = true;
-        }else{
-            $userIsAuthor = false;
-        }
+        $answers = $this->getDoctrine()
+            ->getRepository('EpiAppBundle:Question')
+            ->getQuestionAnswers($questionId);
+
+        $userIsAuthor = $this->getDoctrine()
+            ->getRepository('EpiAppBundle:Question')
+            ->isAuthor($question,$this->getUser());
 
         if($request->isXmlHttpRequest())
         {
@@ -101,13 +104,46 @@ class QuestionController extends Controller
             }
         }
 
+        $answer = new Answer();
+        $form = $this->createForm(new Type\AnswerType(),$answer);
+
         if (!empty($question)) {
-            return $this->render('EpiAppBundle:Question:show.html.twig', array('question' => $question, 'categories' => $category, 'userIsAuthor' => $userIsAuthor));
+            return $this->render('EpiAppBundle:Question:show.html.twig', array('question' => $question, 'answers' => $answers, 'categories' => $categories, 'userIsAuthor' => $userIsAuthor, 'form' => $form->createView(), 'error' => $form->getErrorsAsString()));
         } else {
             $this->get('session')->getFlashBag()->set('error', 'question does not exist');
             return $this->redirect($this->generateUrl('home'));
         }
 
         return $this->render('EpiAppBundle:Question:show.html.twig');
+    }
+
+    public function setBestAnswerAction(Request $request){
+
+        $questionId = $request->get('questionId');
+        $answerId = $request->get('answerId');
+
+        $question = $this->getDoctrine()
+            ->getRepository('EpiAppBundle:Question')
+            ->find($questionId);
+
+        $answer = $this->getDoctrine()
+            ->getRepository('EpiAppBundle:Answer')
+            ->find($answerId);
+
+        $userIsAuthor = $this->getDoctrine()
+            ->getRepository('EpiAppBundle:Question')
+            ->isAuthor($question,$this->getUser());
+
+        if($userIsAuthor)
+        {
+            $question->setBestAnswer($answer);
+                    
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($question);
+            $em->flush();
+        }
+
+        $url = $this->generateUrl('show_question', array('questionId' => $questionId));
+        return $this->redirect($url);
     }
 }

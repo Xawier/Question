@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="Epi\AppBundle\Entity\Question" table="QUESTION">
+  <entity name="Epi\AppBundle\Entity\Question" repository-class="Epi\AppBundle\Entity\QuestionRepository" table="QUESTION">
     <indexes>
       <index name="fk_QUESTION_USER1_idx" columns="USER_ID"/>
       <index name="fk_QUESTION_ANSWER1_idx" columns="BEST_ANSWER"/>

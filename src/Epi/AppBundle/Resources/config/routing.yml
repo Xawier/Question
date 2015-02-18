@@ -19,7 +19,26 @@ show_question:
     defaults: { _controller: EpiAppBundle:Question:show }
     methods:   [GET,POST]
     requirements:
-          postId:     \d+
+          questionId:     \d+
+add_answer:
+    path:     /question/answer/add
+    defaults: { _controller: EpiAppBundle:Answer:add }
+    methods:   [POST]
+    requirements:
+          questionId:     \d+
 change_category_ajax:
     path:   /category/change/ajax
     defaults: { _controller: EpiAppBundle:Category:change }
+show_category:
+    path:     /category/show/{categoryId}
+    defaults: { _controller: EpiAppBundle:Category:show }
+    methods:   [GET]
+    requirements:
+          categoryId:     \d+
+set_best_answer:
+    path: /question/show/{questionId}/setbestanswer/{answerId}
+    defaults: { _controller: EpiAppBundle:Question:setBestAnswer }
+    methods:   [GET]
+    requirements:
+          questionId:     \d+
+          answerId:     \d+

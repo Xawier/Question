@@ -18,3 +18,49 @@ h1{
 	color: white;
 	background: rgb(133, 100, 202);
 }
+
+#AppBundleFormTypeAnswerType_value{
+	height: 62px;
+	resize: none;
+}
+
+.answer-button{
+	height: 60px;
+}
+
+.avatar{
+	border-radius: 5px;
+}
+
+.well.answer, .form-group{
+	margin-bottom: 0;
+}
+
+.answer-date{
+	color: grey;
+}
+
+.panel-answer{
+	opacity: 0.5;
+}
+
+#answer-approved{
+	top: -15px;
+	z-index: 100;
+	position: absolute;
+	right: 0px;
+	color: rgb(92, 184, 92);
+}
+
+#answer-approve{
+	top: -15px;
+	z-index: 100;
+	position: absolute;
+	right: 0px;
+	cursor: pointer;
+	opacity: 0.5;
+}
+
+#answer-approve:hover{
+	opacity: 1;
+}

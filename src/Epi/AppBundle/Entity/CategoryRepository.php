@@ -41,6 +41,18 @@ class CategoryRepository extends EntityRepository
         
 	}
 
+	public function getCategoryQuestions($categoryId){
+		
+		return $query = $this->getEntityManager()
+		    ->createQuery(
+			    'SELECT p
+			    FROM EpiAppBundle:Question p
+			    WHERE p.category = :categoryId'
+			)->setParameter('categoryId', $categoryId)
+ 			->getResult();
+        
+	}
+
 	// public function findAll()
  //    {
  //    	return $this->findBy(array('active' => 1), array('id' => 'DESC'));
