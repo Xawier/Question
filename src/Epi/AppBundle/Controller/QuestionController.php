@@ -169,12 +169,10 @@ class QuestionController extends Controller
 
                 $em->persist($form);
                 $em->flush();
-
-                return $this->redirect($this->generateUrl('home'));
             }
         }
 
-        return array('form' => $form->createView());
-
+        $url = $this->generateUrl('show_question', array('questionId' => $questionId));
+                return $this->redirect($url);
     }
 }

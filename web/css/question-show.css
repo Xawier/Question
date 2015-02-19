@@ -13,6 +13,10 @@ h1{
 	margin-bottom: 0px;
 }
 
+#question{
+	overflow: hidden;
+}
+
 #category{
 	margin: 3px 0px;
 	color: white;
@@ -62,5 +66,50 @@ h1{
 }
 
 #answer-approve:hover{
+	opacity: 1;
+}
+
+#cover-upload{
+	display: none;
+}
+
+#cover-place{
+	margin-top: -15px;
+	text-align: center;
+	padding: 10px;
+	font-size: 46px;
+	background: rgb(131, 33, 33);
+	margin-bottom: 15px;
+	cursor: pointer;
+	opacity: 0.9;
+}
+
+#cover-place:hover{
+	opacity: 1;
+}
+
+#cover-place:hover .fa{
+	color: white;
+}
+
+#cover-place .fa{
+	color: rgb(165, 165, 165);
+	margin: 10px;
+}
+
+.is-set-cover{
+	height: 200px;
+	opacity: 1 !important;
+	padding: 60px !important;
+	background-size: 100% !important;
+	border-bottom: 1px solid rgb(232, 232, 232);
+}
+
+.is-set-cover .fa{
+	opacity: 0;
+	text-shadow: 0px 0px 1px grey;
+}
+
+.is-set-cover:hover .fa{
 	opacity: 1;
 }

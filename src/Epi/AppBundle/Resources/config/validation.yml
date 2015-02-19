@@ -1,5 +1,5 @@
 Epi\AppBundle\Entity\Question:
     properties:
-        cover:
+        file:
             - File:
                 maxSize: 6000000

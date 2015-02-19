@@ -217,7 +217,7 @@ class Question
      */
     public function getCover()
     {
-        return $this->cover;
+        return $this->getWebPath();
     }
 
     /**
