@@ -42,3 +42,9 @@ set_best_answer:
     requirements:
           questionId:     \d+
           answerId:     \d+
+upload_cover:
+    path:     /question/upload/cover
+    defaults: { _controller: EpiAppBundle:Question:upload }
+    methods:   [POST]
+    requirements:
+          questionId:     \d+

@@ -1,0 +1,27 @@
+<?php
+
+namespace Epi\AppBundle\Form\Type;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+class CoverType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->add('file');
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'Epi\AppBundle\Entity\Question'
+        ));
+    }
+
+    public function getName()
+    {
+        return 'question';
+    }
+}

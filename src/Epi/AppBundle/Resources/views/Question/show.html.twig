@@ -12,6 +12,15 @@
 
 <div class="container">
 	<div class="row">
+		<h1>Upload File</h1>
+
+		<form action="{{ path('upload_cover', {'questionId' : question.id}) }}" method="post" {{ form_enctype(form_cover) }}>
+		    {{ form_widget(form_cover) }}
+
+		    <input type="submit" value="Upload Document" />
+		</form>
+	</div>
+	<div class="row">
 	  <div class="col-lg-12">
 	  	<div class="panel panel-default" id="question">
 	  		<div class="panel-body">
@@ -104,7 +113,7 @@
 		    <div class="col-md-12">
 	  			<div class="panel panel-default">
 		        	<div class="panel-body">
-		        		<form role="form" action="{{ path('add_answer', {'questionId' : question.id}) }}" method="post" {{ form_enctype(form) }}>
+		        		<form role="form" action="{{ path('add_answer', {'questionId' : question.id}) }}" method="post" {{ form_enctype(form_answer) }}>
 			        		<div class="col-md-1">
 			        			<div class="row">
 			        				<img src="{{ gravatar(app.user.email,'60') }}" class="avatar"/>
@@ -112,15 +121,15 @@
 			        		</div>
 			        		<div class="col-md-10">
 			        			<div class="row">
-			        				{% if form_errors(form.value) %}
+			        				{% if form_errors(form_answer.value) %}
 						                  <div class="alert alert-danger" role="alert">
 						                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 						                    <span class="sr-only">Error:</span>
-						                    {{ form_errors(form.value) }}
+						                    {{ form_errors(form_answer.value) }}
 						                  </div>
 						          	{% endif %}
 					        		<div class="form-group">
-					        			{{ form_widget(form.value) }}
+					        			{{ form_widget(form_answer.value) }}
 					        		</div>
 					        	</div>
 				        	</div>
@@ -129,7 +138,7 @@
 				        			<button class="btn btn-success pull-right answer-button">Add</br> Answer</button>
 				        		</div>
 				        	</div>
-				         {{ form_rest(form) }}
+				         {{ form_rest(form_answer) }}
 				     	</form>
 		        	</div>
 		        </div>

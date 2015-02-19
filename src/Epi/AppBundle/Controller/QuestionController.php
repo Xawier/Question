@@ -104,11 +104,13 @@ class QuestionController extends Controller
             }
         }
 
+        $form_cover = $this->createForm(new Type\CoverType(),$question);
+
         $answer = new Answer();
-        $form = $this->createForm(new Type\AnswerType(),$answer);
+        $form_answer = $this->createForm(new Type\AnswerType(),$answer);
 
         if (!empty($question)) {
-            return $this->render('EpiAppBundle:Question:show.html.twig', array('question' => $question, 'answers' => $answers, 'categories' => $categories, 'userIsAuthor' => $userIsAuthor, 'form' => $form->createView(), 'error' => $form->getErrorsAsString()));
+            return $this->render('EpiAppBundle:Question:show.html.twig', array('question' => $question, 'form_cover' => $form_cover->createView(), 'answers' => $answers, 'categories' => $categories, 'userIsAuthor' => $userIsAuthor, 'form_answer' => $form_answer->createView(), 'error_answer' => $form_answer->getErrorsAsString()));
         } else {
             $this->get('session')->getFlashBag()->set('error', 'question does not exist');
             return $this->redirect($this->generateUrl('home'));
@@ -145,5 +147,34 @@ class QuestionController extends Controller
 
         $url = $this->generateUrl('show_question', array('questionId' => $questionId));
         return $this->redirect($url);
+    }
+
+    public function uploadAction(Request $request){
+
+        $questionId = $request->get('questionId');
+
+        $question = $this->getDoctrine()
+            ->getRepository('EpiAppBundle:Question')
+            ->find($questionId);
+
+        $form = $this->createForm(new Type\CoverType(), $question);
+
+        if ($request->isMethod('post')) {
+            $form->bindRequest($request);
+            if ($form->isValid()) {
+                $form = $form->getData();
+                $em = $this->getDoctrine()->getManager();
+
+                $question->upload();
+
+                $em->persist($form);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('home'));
+            }
+        }
+
+        return array('form' => $form->createView());
+
     }
 }
