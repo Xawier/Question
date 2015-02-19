@@ -8,6 +8,15 @@ logout:
 register:
     path:     /register
     defaults: { _controller: EpiAppBundle:Security:register }
+admin:
+    path:   /admin
+    defaults: { _controller: EpiAppBundle:Admin:index}
+admin_users:
+    path:   /admin/users
+    defaults: { _controller: EpiAppBundle:Admin:users}
+admin_categories:
+    path:   /admin/categories
+    defaults: { _controller: EpiAppBundle:Admin:categories}
 home:
     path:     /
     defaults: { _controller: EpiAppBundle:Question:index }

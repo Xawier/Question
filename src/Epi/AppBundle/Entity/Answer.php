@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Answer
  *
  * @ORM\Table(name="ANSWER", uniqueConstraints={@ORM\UniqueConstraint(name="ID_UNIQUE", columns={"ID"})}, indexes={@ORM\Index(name="fk_ANSWER_USER1_idx", columns={"USER_ID"}), @ORM\Index(name="fk_ANSWER_QUESTION1_idx", columns={"QUESTION_ID"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Epi\AppBundle\Entity\AnswerRepository")
  */
 class Answer
 {

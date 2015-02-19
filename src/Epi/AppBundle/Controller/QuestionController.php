@@ -66,7 +66,7 @@ class QuestionController extends Controller
 
     public function showAction(Request $request)
     {
-
+        
         $questionId = $request->get('questionId');
 
         $question = $this->getDoctrine()
@@ -158,6 +158,7 @@ class QuestionController extends Controller
             ->find($questionId);
 
         $form = $this->createForm(new Type\CoverType(), $question);
+
 
         if ($request->isMethod('post')) {
             $form->bindRequest($request);

@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * User
  *
  * @ORM\Table(name="USER", uniqueConstraints={@ORM\UniqueConstraint(name="ID_UNIQUE", columns={"ID"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Epi\AppBundle\Entity\UserRepository")
  * @UniqueEntity(fields="email", message="Email already taken", fields="username", message="Username already taken")
  */
 class User implements UserInterface
@@ -69,8 +69,8 @@ class User implements UserInterface
     public function __construct()
     {
         $this->isActive = true;
-        $this->roles = "ROLE_USER";
         $this->salt = md5(uniqid(null, true));
+        $this->roles = 'ROLE_USER';
     }
 
     /**

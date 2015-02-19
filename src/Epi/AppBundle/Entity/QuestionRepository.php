@@ -25,14 +25,27 @@ class QuestionRepository extends EntityRepository
 	}
 
 	public function isAuthor($question,$user){
-		if (true == $user->getRoles('ROLE_USER') && isset($question)) {
-            if($user->getId() == $question->getUser()->getId()){
-                return true;
-            }else{
-                return false;
-            }
-        }else{
-            return false;
-        }
+		if (isset($user)){
+			if (true == $user->getRoles('ROLE_USER') && isset($question)) {
+	            if($user->getId() == $question->getUser()->getId()){
+	                return true;
+	            }else{
+	                return false;
+	            }
+	        }else{
+	            return false;
+	        }
+	    }else{
+	            return false;
+	    }
+	}
+
+	public function countQuestions()
+	{
+		return $query = $this->getEntityManager()
+		    ->createQuery(
+			    'SELECT COUNT(p)
+			    FROM EpiAppBundle:Question p'
+			)->getSingleScalarResult();
 	}
 }

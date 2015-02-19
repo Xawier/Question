@@ -12,17 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoryRepository extends EntityRepository
 {
-	public function countCategory($categoryId)
+	public function countCategoryQuestions($categoryId)
 	{
-		$query = $this->getEntityManager()
+		return $query = $this->getEntityManager()
 		    ->createQuery(
 			    'SELECT COUNT(p)
 			    FROM EpiAppBundle:Question p
 			    WHERE p.category = :categoryId'
 			)->setParameter('categoryId', $categoryId)
- 			->getResult();
-
- 		return $query[0][1];
+ 			->getSingleScalarResult();
 	}
 
 	public function getCategories(){
@@ -33,7 +31,7 @@ class CategoryRepository extends EntityRepository
         foreach ($category as $key => $value) {
         	$count = $this->getEntityManager()
 	            ->getRepository('EpiAppBundle:Category')
-	            ->countCategory($value->getId());
+	            ->countCategoryQuestions($value->getId());
         	$category[$key]->count = $count;
         }
 
@@ -53,30 +51,12 @@ class CategoryRepository extends EntityRepository
         
 	}
 
-	// public function findAll()
- //    {
- //    	return $this->findBy(array('active' => 1), array('id' => 'DESC'));
- //    }
-
-   //  public function find($logId)
-   //  {
-   //  	return $this->getEntityManager()
-   //          ->createQuery(
-			//     'SELECT p
-			//     FROM AppBundle:Log p
-			//     WHERE p.id = :logId'
-			// )->setParameter('logId', $logId)
- 		// 		->getResult();
-   //  }
-
- //    public function getComments($logId)
-	// {
-	//     return $query = $this->getEntityManager()
-	// 	    ->createQuery(
-	// 		    'SELECT p
-	// 		    FROM AppBundle:Comment p
-	// 		    WHERE p.log = :logId'
-	// 		)->setParameter('logId', $logId)
- // 			->getResult();
-	// }
+	public function countCategories()
+	{
+		return $query = $this->getEntityManager()
+		    ->createQuery(
+			    'SELECT COUNT(p)
+			    FROM EpiAppBundle:Category p'
+			)->getSingleScalarResult();
+	}
 }
