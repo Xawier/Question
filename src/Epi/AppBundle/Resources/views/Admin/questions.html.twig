@@ -45,7 +45,7 @@
                                             <td>{{ question.user.username }}</td>
                                             <td>{{ question.category.value | default(false) }}</td>
                                             <td>{{ question.date|date("H:i d/m/Y") }}</td>
-                                            <td><a class="btn btn-default btn-danger" href="#" role="button">Delete</a></td>
+                                            <td><td>{% if question.active == 1 %}<a class="btn btn-default btn-danger" href="{{ url('delete_question', {'questionId' : question.id}) }}" role="button">Delete</a>{% else %} <a class="btn btn-default btn-success" href="{{ url('restore_question', {'questionId' : question.id}) }}" role="button">Restore</a> {% endif %}</td></td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>                        

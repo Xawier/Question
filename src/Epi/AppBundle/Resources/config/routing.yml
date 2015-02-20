@@ -8,6 +8,12 @@ logout:
 register:
     path:     /register
     defaults: { _controller: EpiAppBundle:Security:register }
+acc_setings:
+    path:     /acc_setings/{userId}
+    defaults: { _controller: EpiAppBundle:Security:settings }
+    methods:   [GET]
+    requirements:
+          userId:     \d+
 
 admin:
     path:   /admin
@@ -38,6 +44,18 @@ show_question:
     methods:   [GET,POST]
     requirements:
           questionId:     \d+
+delete_question:
+    path:     /question/question/delete/{questionId}
+    defaults: { _controller: EpiAppBundle:Question:delete }
+    methods:   [GET]
+    requirements:
+          answerId:     \d+
+restore_question:
+    path:     /question/question/restore/{questionId}
+    defaults: { _controller: EpiAppBundle:Question:restore }
+    methods:   [GET]
+    requirements:
+          answerId:     \d+
 
 add_answer:
     path:     /question/answer/add

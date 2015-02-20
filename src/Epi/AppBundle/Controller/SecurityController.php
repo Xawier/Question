@@ -77,4 +77,44 @@ class SecurityController extends Controller
         return $this->render('EpiAppBundle:Security:register.html.twig', array('form' => $form->createView(), 'error' => $form->getErrorsAsString()));
     
     }
+
+    public function settingsAction(Request $request)
+    {
+        $userId = $request->get('userId');
+
+        /*ROLE AUTHENTICATION*/
+        if (true != $this->get('security.context')->isGranted('ROLE_USER') || $userId != $this->getUser()->getId()) {
+                return $this->redirect($this->generateUrl('home'));
+        }
+
+        $user = new User();
+        $form = $this->createForm(new Type\SettingsType(), $user);
+
+        $user = $this->getDoctrine()
+            ->getRepository('EpiAppBundle:User')
+            ->find($userId);
+
+        if ($request->isMethod('post')) {
+
+            $form->bindRequest($request);
+
+            if ($form->isValid()) {
+                $user = $form->getData();
+                $factory = $this->get('security.encoder_factory');
+                $encoder = $factory->getEncoder($user);
+
+                $user->setPassword($encoder->encodePassword($user->getPassword(), $user->getSalt()));
+
+                $em = $this->getDoctrine()->getManager();
+
+                $em->persist($user);
+                $em->flush();
+                
+            }
+
+        }
+
+        return $this->render('EpiAppBundle:Security:acc_settings.html.twig', array('user' => $user));
+
+    }
 }

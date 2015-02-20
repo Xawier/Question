@@ -18,7 +18,7 @@ class CategoryRepository extends EntityRepository
 		    ->createQuery(
 			    'SELECT COUNT(p)
 			    FROM EpiAppBundle:Question p
-			    WHERE p.category = :categoryId'
+			    WHERE p.category = :categoryId AND p.active = 1'
 			)->setParameter('categoryId', $categoryId)
  			->getSingleScalarResult();
 	}
@@ -45,7 +45,7 @@ class CategoryRepository extends EntityRepository
 		    ->createQuery(
 			    'SELECT p
 			    FROM EpiAppBundle:Question p
-			    WHERE p.category = :categoryId'
+			    WHERE p.category = :categoryId AND p.active = 1'
 			)->setParameter('categoryId', $categoryId)
  			->getResult();
         

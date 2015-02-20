@@ -109,11 +109,14 @@ class QuestionController extends Controller
         $answer = new Answer();
         $form_answer = $this->createForm(new Type\AnswerType(),$answer);
 
-        if (!empty($question)) {
-            return $this->render('EpiAppBundle:Question:show.html.twig', array('question' => $question, 'form_cover' => $form_cover->createView(), 'answers' => $answers, 'categories' => $categories, 'userIsAuthor' => $userIsAuthor, 'form_answer' => $form_answer->createView(), 'error_answer' => $form_answer->getErrorsAsString()));
-        } else {
+        if (empty($question)) {
             $this->get('session')->getFlashBag()->set('error', 'question does not exist');
             return $this->redirect($this->generateUrl('home'));
+        } elseif($question->getActive() == 0) {
+            $this->get('session')->getFlashBag()->set('error', 'question is deleteed');
+            return $this->redirect($this->generateUrl('home'));
+        } else {
+            return $this->render('EpiAppBundle:Question:show.html.twig', array('question' => $question, 'form_cover' => $form_cover->createView(), 'answers' => $answers, 'categories' => $categories, 'userIsAuthor' => $userIsAuthor, 'form_answer' => $form_answer->createView(), 'error_answer' => $form_answer->getErrorsAsString()));
         }
 
         return $this->render('EpiAppBundle:Question:show.html.twig');
@@ -175,5 +178,44 @@ class QuestionController extends Controller
 
         $url = $this->generateUrl('show_question', array('questionId' => $questionId));
                 return $this->redirect($url);
+    }
+
+    public function deleteAction(Request $request)
+    {
+        
+        $questionId = $request->get('questionId');
+
+        $question = $this->getDoctrine()
+            ->getRepository('EpiAppBundle:Question')
+            ->find($questionId);
+
+        $question->setActive(0);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($question);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+
+
+    }
+
+    public function restoreAction(Request $request)
+    {
+        $questionId = $request->get('questionId');
+
+        $question = $this->getDoctrine()
+            ->getRepository('EpiAppBundle:Question')
+            ->find($questionId);
+
+        $question->setActive(1);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($question);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+
+
     }
 }
