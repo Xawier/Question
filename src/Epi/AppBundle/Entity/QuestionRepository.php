@@ -48,4 +48,43 @@ class QuestionRepository extends EntityRepository
 			    FROM EpiAppBundle:Question p'
 			)->getSingleScalarResult();
 	}
+
+	public function getAd($question)
+	{	
+		$number = rand ( 1, 100 );
+
+		if( $number > 0 and $number <= 30){
+			$userId = 13;
+		}else if( $number > 30 and $number <= 40 ){
+			$userId = $question->getUser()->getId();
+		}elseif( $number > 40  and $number <= 100 ){
+			if($question->getBestAnswer()){
+				$userId = $question->getBestAnswer()->getUser()->getId();
+			}else{
+				$userId = 13;
+			}
+		}
+
+		$query = $this->getEntityManager()
+		    ->createQuery(
+			    'SELECT p.ad
+			    FROM EpiAppBundle:User p
+			    WHERE p.id = :userId'
+			)->setParameter('userId', $userId)
+			->getSingleScalarResult();
+
+		if($query == null){
+			$userId = 13;
+
+			$query = $this->getEntityManager()
+		    ->createQuery(
+			    'SELECT p.ad
+			    FROM EpiAppBundle:User p
+			    WHERE p.id = :userId'
+			)->setParameter('userId', $userId)
+			->getSingleScalarResult();
+		}
+
+		return $query;
+	}
 }

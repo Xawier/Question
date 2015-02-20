@@ -86,6 +86,12 @@ class Question
      */
     private $active;
 
+    public function __construct()
+    {
+        $this->active = 1;
+    }
+
+
     /**
      * Sets file.
      *

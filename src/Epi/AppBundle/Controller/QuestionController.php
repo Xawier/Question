@@ -85,6 +85,10 @@ class QuestionController extends Controller
             ->getRepository('EpiAppBundle:Question')
             ->isAuthor($question,$this->getUser());
 
+        $ad = $this->getDoctrine()
+            ->getRepository('EpiAppBundle:Question')
+            ->getAD($question);
+
         if($request->isXmlHttpRequest())
         {
             if($userIsAuthor)
@@ -116,7 +120,7 @@ class QuestionController extends Controller
             $this->get('session')->getFlashBag()->set('error', 'question is deleteed');
             return $this->redirect($this->generateUrl('home'));
         } else {
-            return $this->render('EpiAppBundle:Question:show.html.twig', array('question' => $question, 'form_cover' => $form_cover->createView(), 'answers' => $answers, 'categories' => $categories, 'userIsAuthor' => $userIsAuthor, 'form_answer' => $form_answer->createView(), 'error_answer' => $form_answer->getErrorsAsString()));
+            return $this->render('EpiAppBundle:Question:show.html.twig', array('question' => $question, 'ad' => $ad, 'form_cover' => $form_cover->createView(), 'answers' => $answers, 'categories' => $categories, 'userIsAuthor' => $userIsAuthor, 'form_answer' => $form_answer->createView(), 'error_answer' => $form_answer->getErrorsAsString()));
         }
 
         return $this->render('EpiAppBundle:Question:show.html.twig');
