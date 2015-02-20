@@ -61,8 +61,11 @@
                     <li {% if app.request.attributes.get('_route') == 'admin'%}class="active"{% endif %}>
                         <a href="{{ url('admin') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-                    <li>
-                        <a href="charts.html"><i class="fa fa-fw fa-question-circle"></i> Questions</a>
+                    <li {% if app.request.attributes.get('_route') == 'admin_questions'%}class="active"{% endif %}>
+                        <a href="{{ url('admin_questions') }}"><i class="fa fa-fw fa-question-circle"></i> Questions</a>
+                    </li>
+                    <li {% if app.request.attributes.get('_route') == 'admin_answers'%}class="active"{% endif %}>
+                        <a href="{{ url('admin_answers') }}"><i class="fa fa-fw fa-check-circle"></i> Answers</a>
                     </li>
                     <li {% if app.request.attributes.get('_route') == 'admin_users'%}class="active"{% endif %}>
                         <a href="{{ url('admin_users') }}"><i class="fa fa-fw fa-users"></i> Users</a>

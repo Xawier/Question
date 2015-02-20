@@ -15,6 +15,7 @@
     <field name="value" type="text" column="VALUE" nullable="false"/>
     <field name="date" type="datetime" column="DATE" nullable="false"/>
     <field name="cover" type="string" column="COVER" length="45" nullable="true"/>
+    <field name="active" type="integer" column="ACTIVE" nullable="false"/>
     <many-to-one field="category" target-entity="Category">
       <join-columns>
         <join-column name="CATEGORY_ID" referenced-column-name="ID"/>

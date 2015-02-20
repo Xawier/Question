@@ -18,7 +18,7 @@ class QuestionRepository extends EntityRepository
 		    ->createQuery(
 			    'SELECT p
 			    FROM EpiAppBundle:Answer p
-			    WHERE p.question = :questionId'
+			    WHERE p.question = :questionId AND p.active = 1'
 			)->setParameter('questionId', $questionId)
  			->getResult();
         
@@ -27,7 +27,7 @@ class QuestionRepository extends EntityRepository
 	public function isAuthor($question,$user){
 		if (isset($user)){
 			if (true == $user->getRoles('ROLE_USER') && isset($question)) {
-	            if($user->getId() == $question->getUser()->getId()){
+	            if($user->getId() == $question->getUser()->getId() || true == $user->getRoles('ROLE_ADMIN')){
 	                return true;
 	            }else{
 	                return false;

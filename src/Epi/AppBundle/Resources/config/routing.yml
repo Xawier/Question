@@ -8,6 +8,7 @@ logout:
 register:
     path:     /register
     defaults: { _controller: EpiAppBundle:Security:register }
+
 admin:
     path:   /admin
     defaults: { _controller: EpiAppBundle:Admin:index}
@@ -17,9 +18,17 @@ admin_users:
 admin_categories:
     path:   /admin/categories
     defaults: { _controller: EpiAppBundle:Admin:categories}
+admin_questions:
+    path:   /admin/questions
+    defaults: { _controller: EpiAppBundle:Admin:questions}
+admin_answers:
+    path:   /admin/answers
+    defaults: { _controller: EpiAppBundle:Admin:answers}
+
 home:
     path:     /
     defaults: { _controller: EpiAppBundle:Question:index }
+
 add_question:
     path:     /question/add
     defaults: { _controller: EpiAppBundle:Question:add }
@@ -29,12 +38,26 @@ show_question:
     methods:   [GET,POST]
     requirements:
           questionId:     \d+
+
 add_answer:
     path:     /question/answer/add
     defaults: { _controller: EpiAppBundle:Answer:add }
     methods:   [POST]
     requirements:
           questionId:     \d+
+delete_answer:
+    path:     /question/answer/delete/{answerId}
+    defaults: { _controller: EpiAppBundle:Answer:delete }
+    methods:   [GET]
+    requirements:
+          answerId:     \d+
+restore_answer:
+    path:     /question/answer/restore/{answerId}
+    defaults: { _controller: EpiAppBundle:Answer:restore }
+    methods:   [GET]
+    requirements:
+          answerId:     \d+
+
 change_category_ajax:
     path:   /category/change/ajax
     defaults: { _controller: EpiAppBundle:Category:change }

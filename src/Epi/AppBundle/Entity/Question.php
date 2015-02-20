@@ -80,6 +80,13 @@ class Question
     private $file;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="ACTIVE", type="integer", nullable=false)
+     */
+    private $active;
+
+    /**
      * Sets file.
      *
      * @param UploadedFile $file
@@ -297,5 +304,28 @@ class Question
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set active
+     *
+     * @param integer $active
+     * @return Answer
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return integer 
+     */
+    public function getActive()
+    {
+        return $this->active;
     }
 }

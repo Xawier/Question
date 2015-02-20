@@ -9,8 +9,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Epi\AppBundle\Form\Type;
 
-use Epi\AppBundle\Entity\User;
-
 class AdminController extends Controller
 {
     public function indexAction()
@@ -50,5 +48,23 @@ class AdminController extends Controller
             ->findAll();
 
         return $this->render('EpiAppBundle:Admin:categories.html.twig', array('categories' => $categories));
+    }
+
+    public function questionsAction()
+    {
+        $questions = $this->getDoctrine()
+            ->getRepository('EpiAppBundle:Question')
+            ->findAll();
+
+        return $this->render('EpiAppBundle:Admin:questions.html.twig', array('questions' => $questions));
+    }
+
+    public function answersAction()
+    {
+        $answers = $this->getDoctrine()
+            ->getRepository('EpiAppBundle:Answer')
+            ->findAll();
+
+        return $this->render('EpiAppBundle:Admin:answers.html.twig', array('answers' => $answers));
     }
 }

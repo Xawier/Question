@@ -21,21 +21,31 @@
                                 <i class="fa fa-dashboard"></i>  <a href="{{ url('admin') }}">Dashboard</a>
                             </li>
                             <li class="active">
-                                <i class="fa fa-fw fa-bookmark"></i> Categories
+                                <i class="fa fa-fw fa-question-circle"></i> Questions
                             </li>
                         </ol>
-                        <table class="table table-striped">
+                        <table class="table table-striped ">
                           <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Category Name</th>
+                                        <th>Question</th>
+                                        <th>Best Answer</th>
+                                        <th>Author</th>
+                                        <th>Category</th>
+                                        <th>Date</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for category in categories  %}
+                                    {% for question in questions  %}
                                         <tr>
-                                            <td>{{ category.id }}</td>
-                                            <td><a href="{{ url('show_category', {'categoryId' : category.id}) }}" >{{ category.value }}</a></td>
+                                            <td>{{ question.id }}</td>
+                                            <td><a href="{{ url('show_question', {'questionId' : question.id}) }}" >{{ question.value }}</a></td>
+                                            <td>{{ question.bestAnswer.id | default(false) }}</td>
+                                            <td>{{ question.user.username }}</td>
+                                            <td>{{ question.category.value | default(false) }}</td>
+                                            <td>{{ question.date|date("H:i d/m/Y") }}</td>
+                                            <td><a class="btn btn-default btn-danger" href="#" role="button">Delete</a></td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>                        

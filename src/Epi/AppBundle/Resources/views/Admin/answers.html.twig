@@ -21,21 +21,29 @@
                                 <i class="fa fa-dashboard"></i>  <a href="{{ url('admin') }}">Dashboard</a>
                             </li>
                             <li class="active">
-                                <i class="fa fa-fw fa-bookmark"></i> Categories
+                                <i class="fa fa-fw fa-check-circle"></i> Answers
                             </li>
                         </ol>
-                        <table class="table table-striped">
+                        <table class="table table-striped ">
                           <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Category Name</th>
+                                        <th>Answer</th>
+                                        <th>Author</th>
+                                        <th>Question</th>
+                                        <th>Date</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for category in categories  %}
+                                    {% for answer in answers  %}
                                         <tr>
-                                            <td>{{ category.id }}</td>
-                                            <td><a href="{{ url('show_category', {'categoryId' : category.id}) }}" >{{ category.value }}</a></td>
+                                            <td>{{ answer.id }}</td>
+                                            <td><a href="{{ url('show_question', {'questionId' : answer.question.id}) }}" >{{ answer.value }}</a></td>
+                                            <td>{{ answer.user.username }}</td>
+                                            <td>{{ answer.question.id }}</td>
+                                            <td>{{ answer.date|date("H:i d/m/Y") }}</td>
+                                            <td>{% if answer.active == 1 %}<a class="btn btn-default btn-danger" href="{{ url('delete_answer', {'answerId' : answer.id}) }}" role="button">Delete</a>{% else %} <a class="btn btn-default btn-success" href="{{ url('restore_answer', {'answerId' : answer.id}) }}" role="button">Restore</a> {% endif %}</td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>                        

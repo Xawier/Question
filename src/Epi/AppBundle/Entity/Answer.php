@@ -55,7 +55,17 @@ class Answer
      */
     private $user;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ACTIVE", type="integer", nullable=false)
+     */
+    private $active;
 
+    public function __construct()
+    {
+        $this->active = 1;
+    }
 
     /**
      * Set value
@@ -158,4 +168,28 @@ class Answer
     {
         return $this->user;
     }
+
+    /**
+     * Set active
+     *
+     * @param integer $active
+     * @return Answer
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return integer 
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
 }

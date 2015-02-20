@@ -52,4 +52,43 @@ class AnswerController extends Controller
         }
 
     }
+
+    public function deleteAction(Request $request)
+    {
+        
+        $answerId = $request->get('answerId');
+
+        $answer = $this->getDoctrine()
+            ->getRepository('EpiAppBundle:Answer')
+            ->find($answerId);
+
+        $answer->setActive(0);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($answer);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+
+
+    }
+
+    public function restoreAction(Request $request)
+    {
+        $answerId = $request->get('answerId');
+
+        $answer = $this->getDoctrine()
+            ->getRepository('EpiAppBundle:Answer')
+            ->find($answerId);
+
+        $answer->setActive(1);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($answer);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+
+
+    }
 }
