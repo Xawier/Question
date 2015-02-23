@@ -1,19 +1,37 @@
 <?php
-
+/**
+ * Configuration
+ *
+ * PHP version 5.3.3
+ *
+ * @category Configuration
+ * @package  Epi\AppBundle
+ * @author   Mateusz Haber <mateusz.haber@uj.edu.pl>
+ * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link     http://wierzba.wzks.uj.edu.pl/~11_haber/Question/
+ */
 namespace Epi\AppBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+
 /**
- * This is the class that validates and merges configuration from your app/config files
+ * Configuration
  *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
+ * @category Type
+ * @package  Epi\AppBundle\DependencyInjection
+ * @author   Mateusz Haber <mateusz.haber@uj.edu.pl>
+ * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link     http://wierzba.wzks.uj.edu.pl/~11_haber/Question/
  */
 class Configuration implements ConfigurationInterface
 {
+
     /**
-     * {@inheritDoc}
+     * GetConfigTreeBuilider
+     *
+     * @return TreeBuilder
      */
     public function getConfigTreeBuilder()
     {

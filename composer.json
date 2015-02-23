@@ -20,7 +20,8 @@
         "sensio/generator-bundle": "2.2.*",
         "jms/security-extra-bundle": "1.4.*",
         "jms/di-extra-bundle": "1.3.*",
-        "ornicar/gravatar-bundle" : "dev-master"
+        "ornicar/gravatar-bundle" : "dev-master",
+        "squizlabs/php_codesniffer": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

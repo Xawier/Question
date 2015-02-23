@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * CategoryRepository
+ *
+ * PHP version 5.3.3
+ *
+ * @category Repository
+ * @package  Epi\AppBundle
+ * @author   Mateusz Haber <mateusz.haber@uj.edu.pl>
+ * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link     http://wierzba.wzks.uj.edu.pl/~11_haber/Question/
+ */
 namespace Epi\AppBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
@@ -12,7 +22,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoryRepository extends EntityRepository
 {
-	public function countCategoryQuestions($categoryId)
+    /**
+     * @param $categoryId
+     * @return mixed
+     */
+    public function countCategoryQuestions($categoryId)
 	{
 		return $query = $this->getEntityManager()
 		    ->createQuery(
@@ -23,7 +37,10 @@ class CategoryRepository extends EntityRepository
  			->getSingleScalarResult();
 	}
 
-	public function getCategories(){
+    /**
+     * @return array
+     */
+    public function getCategories(){
 		$category = $this->getEntityManager()
             ->getRepository('EpiAppBundle:Category')
             ->findAll();
@@ -39,7 +56,11 @@ class CategoryRepository extends EntityRepository
         
 	}
 
-	public function getCategoryQuestions($categoryId){
+    /**
+     * @param $categoryId
+     * @return array
+     */
+    public function getCategoryQuestions($categoryId){
 		
 		return $query = $this->getEntityManager()
 		    ->createQuery(
@@ -51,7 +72,10 @@ class CategoryRepository extends EntityRepository
         
 	}
 
-	public function countCategories()
+    /**
+     * @return mixed
+     */
+    public function countCategories()
 	{
 		return $query = $this->getEntityManager()
 		    ->createQuery(

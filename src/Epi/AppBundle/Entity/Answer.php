@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * Answer
+ *
+ * PHP version 5.3.3
+ *
+ * @category Entity
+ * @package  Epi\AppBundle
+ * @author   Mateusz Haber <mateusz.haber@uj.edu.pl>
+ * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link     http://wierzba.wzks.uj.edu.pl/~11_haber/Question/
+ */
 namespace Epi\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,12 +17,23 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Answer
  *
- * @ORM\Table(name="ANSWER", uniqueConstraints={@ORM\UniqueConstraint(name="ID_UNIQUE", columns={"ID"})}, indexes={@ORM\Index(name="fk_ANSWER_USER1_idx", columns={"USER_ID"}), @ORM\Index(name="fk_ANSWER_QUESTION1_idx", columns={"QUESTION_ID"})})
- * @ORM\Entity(repositoryClass="Epi\AppBundle\Entity\AnswerRepository")
+ * @ORM\Table            (name="ANSWER", uniqueConstraints={
+ * @ORM\UniqueConstraint (name="ID_UNIQUE", columns={"ID"})}, indexes={
+ * @ORM\Index            (name="fk_ANSWER_USER1_idx", columns={"USER_ID"}),
+ * @ORM\Index            (name="fk_ANSWER_QUESTION1_idx", columns={"QUESTION_ID"})})
+ * @ORM\Entity           (repositoryClass="Epi\AppBundle\Entity\AnswerRepository")
+ *
+ * @category Entity
+ * @package  Epi\AppBundle\Entity
+ * @author   Mateusz Haber <mateusz.haber@uj.edu.pl>
+ * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link     http://wierzba.wzks.uj.edu.pl/~11_haber/Question/
  */
 class Answer
 {
     /**
+     * Value
+     *
      * @var string
      *
      * @ORM\Column(name="VALUE", type="text", nullable=false)
@@ -20,6 +41,8 @@ class Answer
     private $value;
 
     /**
+     * Date
+     *
      * @var \DateTime
      *
      * @ORM\Column(name="DATE", type="datetime", nullable=false)
@@ -27,41 +50,52 @@ class Answer
     private $date;
 
     /**
+     * Id
+     *
      * @var integer
      *
-     * @ORM\Column(name="ID", type="integer")
+     * @ORM\Column         (name="ID", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue (strategy="IDENTITY")
      */
     private $id;
 
     /**
+     * Question
+     *
      * @var \Epi\AppBundle\Entity\Question
      *
-     * @ORM\ManyToOne(targetEntity="Epi\AppBundle\Entity\Question")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="QUESTION_ID", referencedColumnName="ID")
+     * @ORM\ManyToOne   (targetEntity="Epi\AppBundle\Entity\Question")
+     * @ORM\JoinColumns ({
+     * @ORM\JoinColumn  (name="QUESTION_ID", referencedColumnName="ID")
      * })
      */
     private $question;
 
     /**
+     * User
+     *
      * @var \Epi\AppBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="Epi\AppBundle\Entity\User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="USER_ID", referencedColumnName="ID")
+     * @ORM\ManyToOne   (targetEntity="Epi\AppBundle\Entity\User")
+     * @ORM\JoinColumns ({
+     * @ORM\JoinColumn  (name="USER_ID", referencedColumnName="ID")
      * })
      */
     private $user;
 
     /**
+     * Active
+     *
      * @var integer
      *
-     * @ORM\Column(name="ACTIVE", type="integer", nullable=false)
+     * @ORM\Column (name="ACTIVE", type="integer", nullable=false)
      */
     private $active;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->active = 1;
@@ -70,7 +104,8 @@ class Answer
     /**
      * Set value
      *
-     * @param string $value
+     * @param string $value value
+     *
      * @return Answer
      */
     public function setValue($value)
@@ -93,7 +128,8 @@ class Answer
     /**
      * Set date
      *
-     * @param \DateTime $date
+     * @param \DateTime $date date
+     *
      * @return Answer
      */
     public function setDate($date)
@@ -126,7 +162,8 @@ class Answer
     /**
      * Set question
      *
-     * @param \Epi\AppBundle\Entity\Question $question
+     * @param \Epi\AppBundle\Entity\Question $question question
+     *
      * @return Answer
      */
     public function setQuestion(\Epi\AppBundle\Entity\Question $question = null)
@@ -172,7 +209,8 @@ class Answer
     /**
      * Set active
      *
-     * @param integer $active
+     * @param integer $active active
+     *
      * @return Answer
      */
     public function setActive($active)
@@ -185,7 +223,7 @@ class Answer
     /**
      * Get active
      *
-     * @return integer 
+     * @return integer
      */
     public function getActive()
     {

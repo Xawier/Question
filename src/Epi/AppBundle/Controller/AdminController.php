@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * AdminController
+ *
+ * PHP version 5.3.3
+ *
+ * @category Class
+ * @package  Epi\AppBundle
+ * @author   Mateusz Haber <mateusz.haber@uj.edu.pl>
+ * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link     http://wierzba.wzks.uj.edu.pl/~11_haber/Question/
+ */
 namespace Epi\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -9,8 +19,15 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Epi\AppBundle\Form\Type;
 
+/**
+ * Class AdminController
+ * @package Epi\AppBundle\Controller
+ */
 class AdminController extends Controller
 {
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction()
     {
         $countQuestions = $this->getDoctrine()
@@ -32,6 +49,9 @@ class AdminController extends Controller
         return $this->render('EpiAppBundle:Admin:index.html.twig', array('countQuestions' => $countQuestions, 'countCategories' => $countCategories, 'countAnswers' => $countAnswers, 'countUsers' => $countUsers));
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function usersAction()
     {
         $users = $this->getDoctrine()
@@ -41,6 +61,9 @@ class AdminController extends Controller
         return $this->render('EpiAppBundle:Admin:users.html.twig', array('users' => $users));
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function categoriesAction()
     {
         $categories = $this->getDoctrine()
@@ -50,6 +73,9 @@ class AdminController extends Controller
         return $this->render('EpiAppBundle:Admin:categories.html.twig', array('categories' => $categories));
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function questionsAction()
     {
         $questions = $this->getDoctrine()
@@ -59,6 +85,9 @@ class AdminController extends Controller
         return $this->render('EpiAppBundle:Admin:questions.html.twig', array('questions' => $questions));
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function answersAction()
     {
         $answers = $this->getDoctrine()
