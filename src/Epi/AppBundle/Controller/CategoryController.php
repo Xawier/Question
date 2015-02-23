@@ -38,9 +38,15 @@ class CategoryController extends Controller
             ->getCategoryQuestions($categoryId);
 
         if (!empty($category)) {
-            return $this->render('EpiAppBundle:Category:show.html.twig', array('questions' => $questions, 'category' => $category));
+            return $this->render(
+                'EpiAppBundle:Category:show.html.twig',
+                array(
+                    'questions' => $questions,
+                    'category' => $category)
+            );
         } else {
-            $this->get('session')->getFlashBag()->set('error', 'question does not exist');
+            $this->get('session')
+                ->getFlashBag()->set('error', 'question does not exist');
             return $this->redirect($this->generateUrl('home'));
         }
 

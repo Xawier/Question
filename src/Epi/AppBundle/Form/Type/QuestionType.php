@@ -18,30 +18,53 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Class QuestionType
- * @package Epi\AppBundle\Form\Type
+ *
+ * @category Type
+ * @package  Epi\AppBundle\Form\Type
+ * @author   Mateusz Haber <mateusz.haber@uj.edu.pl>
+ * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link     http://wierzba.wzks.uj.edu.pl/~11_haber/Question/
  */
 class QuestionType extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * BuildForm
+     *
+     * @param FormBuilderInterface $builder builder
+     * @param array                $options options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('value', 'text', array('attr'  => array('class' => 'form-control', 'placeholder' => 'Where do babies come from?')));
+        $builder->add(
+            'value',
+            'text',
+            array(
+                'attr'  => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Where do babies come from?')
+            )
+        );
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
+     * SetDefaultOptions
+     *
+     * @param OptionsResolverInterface $resolver resolver
+     *
+     * @return nothing
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => 'Epi\AppBundle\Entity\Question'
-        ));
+            )
+        );
     }
 
     /**
+     * GetName
+     *
      * @return string
      */
     public function getName()

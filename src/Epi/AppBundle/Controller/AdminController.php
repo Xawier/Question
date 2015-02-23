@@ -46,7 +46,13 @@ class AdminController extends Controller
             ->getRepository('EpiAppBundle:Category')
             ->countCategories();
 
-        return $this->render('EpiAppBundle:Admin:index.html.twig', array('countQuestions' => $countQuestions, 'countCategories' => $countCategories, 'countAnswers' => $countAnswers, 'countUsers' => $countUsers));
+        return $this->render(
+            'EpiAppBundle:Admin:index.html.twig',
+            array('countQuestions' => $countQuestions,
+                'countCategories' => $countCategories,
+                'countAnswers' => $countAnswers,
+                'countUsers' => $countUsers)
+        );
     }
 
     /**
@@ -58,7 +64,10 @@ class AdminController extends Controller
             ->getRepository('EpiAppBundle:User')
             ->findAll();
 
-        return $this->render('EpiAppBundle:Admin:users.html.twig', array('users' => $users));
+        return $this->render(
+            'EpiAppBundle:Admin:users.html.twig',
+            array('users' => $users)
+        );
     }
 
     /**
@@ -70,7 +79,11 @@ class AdminController extends Controller
             ->getRepository('EpiAppBundle:Category')
             ->findAll();
 
-        return $this->render('EpiAppBundle:Admin:categories.html.twig', array('categories' => $categories));
+        return $this->render(
+            'EpiAppBundle:Admin:categories.html.twig',
+            array(
+                'categories' => $categories)
+        );
     }
 
     /**
@@ -82,7 +95,11 @@ class AdminController extends Controller
             ->getRepository('EpiAppBundle:Question')
             ->findAll();
 
-        return $this->render('EpiAppBundle:Admin:questions.html.twig', array('questions' => $questions));
+        return $this->render(
+            'EpiAppBundle:Admin:questions.html.twig',
+            array(
+                'questions' => $questions)
+        );
     }
 
     /**
@@ -94,6 +111,9 @@ class AdminController extends Controller
             ->getRepository('EpiAppBundle:Answer')
             ->findAll();
 
-        return $this->render('EpiAppBundle:Admin:answers.html.twig', array('answers' => $answers));
+        return $this->render(
+            'EpiAppBundle:Admin:answers.html.twig',
+            array('answers' => $answers)
+        );
     }
 }

@@ -38,8 +38,8 @@ class AnswerController extends Controller
             ->getRepository('EpiAppBundle:Question')
             ->find($questionId);
 
-    	$answer = new Answer();
-        $form = $this->createForm(new Type\AnswerType(),$answer);
+        $answer = new Answer();
+        $form = $this->createForm(new Type\AnswerType(), $answer);
 
         if ($request->isMethod('post')) {
 
@@ -55,8 +55,14 @@ class AnswerController extends Controller
                 $em->persist($answer);
                 $em->flush();
 
-                $url = $this->generateUrl('show_question', array('questionId' => $questionId));
-                return $this->redirect($url."#AppBundleFormTypeAnswerType_value");
+                $url = $this->generateUrl(
+                    'show_question',
+                    array(
+                        'questionId' => $questionId)
+                );
+                return $this->redirect(
+                    $url."#AppBundleFormTypeAnswerType_value"
+                );
 
             }
         }

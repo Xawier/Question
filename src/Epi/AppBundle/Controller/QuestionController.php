@@ -23,20 +23,39 @@ use Epi\AppBundle\Entity\Category;
 use Epi\AppBundle\Entity\User;
 use Epi\AppBundle\Entity\Answer;
 
+/**
+ * Class QuestionController
+ * @package Epi\AppBundle\Controller
+ */
 class QuestionController extends Controller
 {
-	public function indexAction(Request $request)
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function indexAction(Request $request)
     {
-    	$question = new Question();
+        $question = new Question();
         $form = $this->createForm(new Type\QuestionType(), $question);
 
         $category = $this->getDoctrine()
             ->getRepository('EpiAppBundle:Category')
             ->getCategories();
-            
-        return $this->render('EpiAppBundle:Question:index.html.twig', array('categories' => $category, 'form' => $form->createView(), 'error' => $form->getErrorsAsString()));
+
+        return $this->render(
+            'EpiAppBundle:Question:index.html.twig',
+            array(
+                'categories' => $category,
+                'form' => $form->createView(),
+                'error' => $form->getErrorsAsString()
+            )
+        );
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
     public function addAction(Request $request)
     {
         /*ROLE AUTHENTICATION*/
@@ -44,28 +63,33 @@ class QuestionController extends Controller
                 return $this->redirect($this->generateUrl('register'));
         }
 
-    	$question = new Question();
+        $question = new Question();
         $form = $this->createForm(new Type\QuestionType(), $question);
 
-    	if ($request->isMethod('post')) {
+        if ($request->isMethod('post')) {
 
-    		$form->bindRequest($request);
+            $form->bindRequest($request);
 
             if ($form->isValid()) {
 
-            	$user = new User();
-            	$user = $this->get('security.context')->getToken()->getUser();
+                $user = new User();
+                $user = $this->get('security.context')->getToken()->getUser();
 
-    			$question = $form->getData();
-    			$question->setDate(new \DateTime());
-    			$question->setUser($user);
+                $question = $form->getData();
+                $question->setDate(new \DateTime());
+                $question->setUser($user);
 
                 $em = $this->getDoctrine()->getManager();
 
                 $em->persist($question);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('show_question', array('questionId' => $question->getId())));
+                return $this->redirect(
+                    $this->generateUrl(
+                        'show_question',
+                        array('questionId' => $question->getId())
+                    )
+                );
 
             }
     
@@ -74,6 +98,10 @@ class QuestionController extends Controller
         return $this->render('EpiAppBundle:Question:index.html.twig');
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
     public function showAction(Request $request)
     {
         
@@ -93,16 +121,13 @@ class QuestionController extends Controller
 
         $userIsAuthor = $this->getDoctrine()
             ->getRepository('EpiAppBundle:Question')
-            ->isAuthor($question,$this->getUser());
+            ->isAuthor($question, $this->getUser());
 
         $ad = $this->getDoctrine()
             ->getRepository('EpiAppBundle:Question')
             ->getAD($question);
-
-        if($request->isXmlHttpRequest())
-        {
-            if($userIsAuthor)
-            {
+        if ($request->isXmlHttpRequest()) {
+            if ($userIsAuthor) {
                 $categoryId = $this->get('request')->request->get('categoryId');
 
                 $category = $this->getDoctrine()
@@ -118,25 +143,46 @@ class QuestionController extends Controller
             }
         }
 
-        $form_cover = $this->createForm(new Type\CoverType(),$question);
+        $formCover = $this->createForm(new Type\CoverType(), $question);
 
         $answer = new Answer();
-        $form_answer = $this->createForm(new Type\AnswerType(),$answer);
+        $formAnswer = $this->createForm(new Type\AnswerType(), $answer);
 
         if (empty($question)) {
-            $this->get('session')->getFlashBag()->set('error', 'question does not exist');
+            $this->get('session')
+                ->getFlashBag()
+                ->set('error', 'question does not exist');
             return $this->redirect($this->generateUrl('home'));
-        } elseif($question->getActive() == 0) {
-            $this->get('session')->getFlashBag()->set('error', 'question is deleteed');
+        } else if ($question->getActive() == 0) {
+            $this->get('session')
+                ->getFlashBag()
+                ->set('error', 'question is deleteed');
             return $this->redirect($this->generateUrl('home'));
         } else {
-            return $this->render('EpiAppBundle:Question:show.html.twig', array('question' => $question, 'ad' => $ad, 'form_cover' => $form_cover->createView(), 'answers' => $answers, 'categories' => $categories, 'userIsAuthor' => $userIsAuthor, 'form_answer' => $form_answer->createView(), 'error_answer' => $form_answer->getErrorsAsString()));
+            return $this->render(
+                'EpiAppBundle:Question:show.html.twig',
+                array(
+                    'question' => $question,
+                    'ad' => $ad,
+                    'form_cover' => $formCover->createView(),
+                    'answers' => $answers,
+                    'categories' => $categories,
+                    'userIsAuthor' => $userIsAuthor,
+                    'form_answer' => $formAnswer->createView(),
+                    'error_answer' => $formAnswer->getErrorsAsString()
+                )
+            );
         }
 
         return $this->render('EpiAppBundle:Question:show.html.twig');
     }
 
-    public function setBestAnswerAction(Request $request){
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function setBestAnswerAction(Request $request)
+    {
 
         $questionId = $request->get('questionId');
         $answerId = $request->get('answerId');
@@ -151,10 +197,9 @@ class QuestionController extends Controller
 
         $userIsAuthor = $this->getDoctrine()
             ->getRepository('EpiAppBundle:Question')
-            ->isAuthor($question,$this->getUser());
+            ->isAuthor($question, $this->getUser());
 
-        if($userIsAuthor)
-        {
+        if ($userIsAuthor) {
             $question->setBestAnswer($answer);
                     
             $em = $this->getDoctrine()->getManager();
@@ -162,11 +207,19 @@ class QuestionController extends Controller
             $em->flush();
         }
 
-        $url = $this->generateUrl('show_question', array('questionId' => $questionId));
+        $url = $this->generateUrl(
+            'show_question',
+            array('questionId' => $questionId)
+        );
         return $this->redirect($url);
     }
 
-    public function uploadAction(Request $request){
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function uploadAction(Request $request)
+    {
 
         $questionId = $request->get('questionId');
 
@@ -190,10 +243,17 @@ class QuestionController extends Controller
             }
         }
 
-        $url = $this->generateUrl('show_question', array('questionId' => $questionId));
+        $url = $this->generateUrl(
+            'show_question',
+            array('questionId' => $questionId)
+        );
                 return $this->redirect($url);
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function deleteAction(Request $request)
     {
         
@@ -214,6 +274,10 @@ class QuestionController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function restoreAction(Request $request)
     {
         $questionId = $request->get('questionId');

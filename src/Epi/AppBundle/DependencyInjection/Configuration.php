@@ -19,7 +19,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 /**
  * Configuration
  *
- * @category Type
+ * @category Configuration
  * @package  Epi\AppBundle\DependencyInjection
  * @author   Mateusz Haber <mateusz.haber@uj.edu.pl>
  * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License

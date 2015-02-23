@@ -19,7 +19,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table            (name="CATEGORY", uniqueConstraints={
  * @ORM\UniqueConstraint (name="ID_UNIQUE", columns={"ID"})})
- * @ORM\Entity           (repositoryClass="Epi\AppBundle\Entity\CategoryRepository")
+ * @ORM\Entity           (repositoryClass=
+ * "Epi\AppBundle\Entity\CategoryRepository")
  *
  * @category Entity
  * @package  Epi\AppBundle\Entity

@@ -47,7 +47,8 @@ class SecurityController extends Controller
             'EpiAppBundle:Security:login.html.twig',
             array(
                 // last username entered by the user
-                'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                'last_username' => $session
+                    ->get(SecurityContext::LAST_USERNAME),
                 'error'         => $error,
             )
         );
@@ -72,19 +73,34 @@ class SecurityController extends Controller
                 $factory = $this->get('security.encoder_factory');
                 $encoder = $factory->getEncoder($user);
 
-                $user->setPassword($encoder->encodePassword($user->getPassword(), $user->getSalt()));
+                $user->setPassword(
+                    $encoder->encodePassword(
+                        $user->getPassword(),
+                        $user->getSalt()
+                    )
+                );
 
                 $em = $this->getDoctrine()->getManager();
 
                 $em->persist($user);
                 $em->flush();
-                return $this->render('EpiAppBundle:Security:login.html.twig', array('last_username' => $user->getUsername(), 'error' => null));
+                return $this->render(
+                    'EpiAppBundle:Security:login.html.twig',
+                    array(
+                        'last_username' => $user->getUsername(),
+                        'error' => null)
+                );
     
             }
 
         }
 
-        return $this->render('EpiAppBundle:Security:register.html.twig', array('form' => $form->createView(), 'error' => $form->getErrorsAsString()));
+        return $this->render(
+            'EpiAppBundle:Security:register.html.twig',
+            array('form' => $form->createView(),
+                'error' => $form->getErrorsAsString()
+            )
+        );
     
     }
 
@@ -93,7 +109,8 @@ class SecurityController extends Controller
         $userId = $request->get('userId');
 
         /*ROLE AUTHENTICATION*/
-        if (true != $this->get('security.context')->isGranted('ROLE_USER') || $userId != $this->getUser()->getId()) {
+        if (true != $this->get('security.context')->isGranted('ROLE_USER') ||
+            $userId != $this->getUser()->getId()) {
                 return $this->redirect($this->generateUrl('home'));
         }
 
@@ -113,7 +130,12 @@ class SecurityController extends Controller
                 $factory = $this->get('security.encoder_factory');
                 $encoder = $factory->getEncoder($user);
 
-                $user->setPassword($encoder->encodePassword($user->getPassword(), $user->getSalt()));
+                $user->setPassword(
+                    $encoder->encodePassword(
+                        $user->getPassword(),
+                        $user->getSalt()
+                    )
+                );
 
                 $em = $this->getDoctrine()->getManager();
 
@@ -124,7 +146,10 @@ class SecurityController extends Controller
 
         }
 
-        return $this->render('EpiAppBundle:Security:acc_settings.html.twig', array('user' => $user));
+        return $this->render(
+            'EpiAppBundle:Security:acc_settings.html.twig',
+            array('user' => $user)
+        );
 
     }
 }

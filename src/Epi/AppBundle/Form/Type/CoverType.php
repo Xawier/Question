@@ -37,9 +37,11 @@ class CoverType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Epi\AppBundle\Entity\Question'
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Epi\AppBundle\Entity\Question'
+            )
+        );
     }
 
     /**
